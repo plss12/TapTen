@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '/const/colors.dart';
-import 'dart:async';
+//import 'dart:async';
 
 class Buttons {
   void _increaseTries(int tries, void Function(int) updateTries) {

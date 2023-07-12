@@ -9,14 +9,14 @@ class Counter extends StatefulWidget {
     required this.onUpdateInformation,
     required this.lastTry,
     required this.bestTry,
-    required this.tries,
+    required this.start,
   });
 
   final VoidCallback onSaveStatistics;
-  final Function(int, int, int) onUpdateInformation;
+  final Function(int, int) onUpdateInformation;
   final int lastTry;
   final ValueNotifier<int> bestTry;
-  final ValueNotifier<int> tries;
+  final ValueNotifier<bool> start;
 
   @override
   State<Counter> createState() => _CounterState();
@@ -27,17 +27,16 @@ class _CounterState extends State<Counter> {
   int _timer = 2;
   int _lastTry = 0;
   int _bestTry = 0;
-  int _tries = 0;
   Timer? _timerInstance;
   int _counter = 0;
-  bool _last = false;
+  bool _start = false;
 
   @override
   void initState() {
     super.initState();
     _lastTry = widget.lastTry;
     _bestTry = widget.bestTry.value;
-    _tries = widget.tries.value;
+    _start = widget.start.value;
 
     widget.bestTry.addListener(() {
       setState(() {
@@ -45,9 +44,9 @@ class _CounterState extends State<Counter> {
       });
     });
 
-    widget.tries.addListener(() {
+    widget.start.addListener(() {
       setState(() {
-        _tries = widget.tries.value;
+        _start = widget.start.value;
       });
     });
   }
@@ -67,11 +66,10 @@ class _CounterState extends State<Counter> {
       });
     } else {
       _resetCounters();
-      widget.onUpdateInformation(_tries, _lastTry, _bestTry);
+      widget.onUpdateInformation(_lastTry, _bestTry);
       widget.onSaveStatistics();
       _timerInstance?.cancel();
       _timerInstance = null;
-      _last = false;
     }
   }
 
@@ -83,26 +81,19 @@ class _CounterState extends State<Counter> {
 
   void _resetCounters() {
     setState(() {
+      _timer = _timeTimer;
       _lastTry = _counter;
       _bestTry = _counter > _bestTry ? _counter : _bestTry;
       _counter = 0;
-      _timer = _timeTimer;
     });
   }
 
   void _button() {
-    if (_tries <= 0 && _last == false) {
-    } else {
-      if (_timerInstance == null) {
-        _tries--;
-        if (_tries == 0) {
-          _last = true;
-        }
-        _startTimer();
-      }
-      if (_last || _tries > 0) {
-        _increaseCounter();
-      }
+    if (_timerInstance == null && _start) {
+      _startTimer();
+      _increaseCounter();
+    } else if (_start) {
+      _increaseCounter();
     }
   }
 

@@ -18,6 +18,9 @@ class ColorsData {
   static Icon coin = const Icon(
     Icons.monetization_on_rounded,
   );
+  static Icon startIcon = const Icon(
+    Icons.play_circle_rounded,
+  );
 
   static void toggleDarkMode() {
     backgroundColor =

@@ -16,7 +16,7 @@ class Game extends StatefulWidget {
 class _GameState extends State<Game> {
   int _lastTry = 0;
   final ValueNotifier<int> _bestTry = ValueNotifier<int>(0);
-  final ValueNotifier<int> _tries = ValueNotifier<int>(5);
+  final ValueNotifier<bool> _start = ValueNotifier<bool>(false);
   final String kLastAttemptKey = 'lastAttempt';
   final String kBestAttemptKey = 'bestAttempt';
   final String kTriesAttemptKey = 'triesAttempt';
@@ -40,7 +40,6 @@ class _GameState extends State<Game> {
     setState(() {
       _lastTry = prefs.getInt(kLastAttemptKey) ?? 0;
       _bestTry.value = prefs.getInt(kBestAttemptKey) ?? 0;
-      _tries.value = prefs.getInt(kTriesAttemptKey) ?? 5;
     });
   }
 
@@ -48,19 +47,11 @@ class _GameState extends State<Game> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setInt(kLastAttemptKey, _lastTry);
     await prefs.setInt(kBestAttemptKey, _bestTry.value);
-    await prefs.setInt(kTriesAttemptKey, _tries.value);
   }
 
-  void _updateTries(int newTries) {
+  void _updateInformation(int lastTry, int bestTry) {
     setState(() {
-      _tries.value = newTries;
-    });
-    _saveStatistics();
-  }
-
-  void _updateInformation(int tries, int lastTry, int bestTry) {
-    setState(() {
-      _tries.value = tries;
+      _start.value = false;
       _lastTry = lastTry;
       _bestTry.value = bestTry;
     });
@@ -87,22 +78,20 @@ class _GameState extends State<Game> {
                         alignment: Alignment.centerRight,
                         child: Row(children: [
                           Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 8.0),
-                                  child: ScoreBoard(
-                                      label: 'Intentos',
-                                      score: '${_tries.value}'),
-                                ),
-                                buttons.moreTries(_tries.value, _updateTries),
-                              ],
-                            ),
-                          ),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8.0),
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 8.0),
+                                    child: ColorToggleButton(
+                                        onPressed: () => setState(() {})),
+                                  ),
+                                ],
+                              )),
                           Padding(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 8.0),
@@ -115,8 +104,6 @@ class _GameState extends State<Game> {
                                   child: ScoreBoard(
                                       label: 'Puntuación', score: '$_lastTry'),
                                 ),
-                                ColorToggleButton(
-                                    onPressed: () => setState(() {})),
                               ],
                             ),
                           ),
@@ -133,23 +120,50 @@ class _GameState extends State<Game> {
                                       label: 'Record',
                                       score: '${_bestTry.value}'),
                                 ),
-                                buttons.lessTries(_tries.value, _updateTries),
                               ],
                             ),
                           ),
                         ])),
                   ])),
-          Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
-              child: Counter(
-                tries: _tries,
-                lastTry: _lastTry,
-                bestTry: _bestTry,
-                onSaveStatistics: () => _saveStatistics(),
-                onUpdateInformation: (int tries, int lastTry, int bestTry) =>
-                    _updateInformation(tries, lastTry, bestTry),
-              )),
+          IgnorePointer(
+            ignoring: !_start.value,
+            child: Opacity(
+              opacity: !_start.value ? 0.5 : 1.0,
+              child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0, vertical: 16.0),
+                  child: Counter(
+                      start: _start,
+                      lastTry: _lastTry,
+                      bestTry: _bestTry,
+                      onSaveStatistics: () => _saveStatistics(),
+                      onUpdateInformation: (int lastTry, int bestTry) {
+                        _updateInformation(lastTry, bestTry);
+                      })),
+            ),
+          ),
+          Visibility(
+              visible: !_start.value,
+              child: Container(
+                  //padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
+                  decoration: BoxDecoration(
+                      color: ColorsData.boxColor,
+                      borderRadius: BorderRadius.circular(8.0)),
+                  child: Column(children: [
+                    IconButton(
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      icon: ColorsData.startIcon,
+                      color: ColorsData.boxNumberColor,
+                      tooltip: 'Comenzar',
+                      onPressed: () {
+                        setState(() {
+                          _start.value = true;
+                        });
+                      },
+                    )
+                  ]))),
         ],
       ),
     );
