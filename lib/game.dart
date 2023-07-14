@@ -61,110 +61,106 @@ class _GameState extends State<Game> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorsData.backgroundColor,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Image.asset(
-                      'assets/images/Logo.png',
-                      width: 100,
+      body: Container(
+        margin: const EdgeInsets.only(top: 75, bottom: 10),
+        child: Column(
+          children: [
+            Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Image.asset(
+                        'assets/images/Logo.png',
+                        width: 150,
+                      ),
+                      Row(children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 8.0),
+                                child: ScoreBoard(
+                                    label: '  SCORE  ', score: '$_lastTry'),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 8.0),
+                                child: ScoreBoard(
+                                    label: 'RECORD',
+                                    score: '${_bestTry.value}'),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ]),
+                    ])),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 25.0),
+              child: Column(
+                children: [
+                  IgnorePointer(
+                    ignoring: !_start.value,
+                    child: Opacity(
+                      opacity: !_start.value ? 0.5 : 1.0,
+                      child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Counter(
+                              start: _start,
+                              lastTry: _lastTry,
+                              bestTry: _bestTry,
+                              onSaveStatistics: () => _saveStatistics(),
+                              onUpdateInformation: (int lastTry, int bestTry) {
+                                _updateInformation(lastTry, bestTry);
+                              })),
                     ),
-                    Container(
-                        alignment: Alignment.centerRight,
-                        child: Row(children: [
-                          Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 8.0),
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(bottom: 8.0),
-                                    child: ColorToggleButton(
-                                        onPressed: () => setState(() {})),
-                                  ),
-                                ],
-                              )),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 8.0),
-                                  child: ScoreBoard(
-                                      label: 'Puntuación', score: '$_lastTry'),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 8.0),
-                                  child: ScoreBoard(
-                                      label: 'Record',
-                                      score: '${_bestTry.value}'),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ])),
-                  ])),
-          IgnorePointer(
-            ignoring: !_start.value,
-            child: Opacity(
-              opacity: !_start.value ? 0.5 : 1.0,
-              child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 16.0, vertical: 16.0),
-                  child: Counter(
-                      start: _start,
-                      lastTry: _lastTry,
-                      bestTry: _bestTry,
-                      onSaveStatistics: () => _saveStatistics(),
-                      onUpdateInformation: (int lastTry, int bestTry) {
-                        _updateInformation(lastTry, bestTry);
-                      })),
+                  ),
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child:
+                          ColorToggleButton(onPressed: () => setState(() {})),
+                    ),
+                    Visibility(
+                        visible: !_start.value,
+                        child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                                width: 80,
+                                height: 80,
+                                decoration: BoxDecoration(
+                                    color: ColorsData.boxColor,
+                                    borderRadius: BorderRadius.circular(8.0)),
+                                child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      IconButton(
+                                        splashColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        icon: ColorsData.startIcon,
+                                        color: ColorsData.boxNumberColor,
+                                        iconSize: 55,
+                                        onPressed: () {
+                                          setState(() {
+                                            _start.value = true;
+                                          });
+                                        },
+                                      )
+                                    ])))),
+                  ])
+                ],
+              ),
             ),
-          ),
-          Visibility(
-              visible: !_start.value,
-              child: Container(
-                  //padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
-                  decoration: BoxDecoration(
-                      color: ColorsData.boxColor,
-                      borderRadius: BorderRadius.circular(8.0)),
-                  child: Column(children: [
-                    IconButton(
-                      splashColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      icon: ColorsData.startIcon,
-                      color: ColorsData.boxNumberColor,
-                      tooltip: 'Comenzar',
-                      onPressed: () {
-                        setState(() {
-                          _start.value = true;
-                        });
-                      },
-                    )
-                  ]))),
-        ],
+          ],
+        ),
       ),
     );
   }

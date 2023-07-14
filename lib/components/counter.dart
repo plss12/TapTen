@@ -101,21 +101,26 @@ class _CounterState extends State<Counter> {
   Widget build(BuildContext context) {
     return Column(children: [
       Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
         decoration: BoxDecoration(
             color: ColorsData.boxColor,
             borderRadius: BorderRadius.circular(8.0)),
         child: Column(children: [
           Text(
-            "Segundos Restantes",
-            style: TextStyle(fontSize: 12.0, color: ColorsData.boxLetterColor),
+            "SECONDS",
+            style: TextStyle(
+              fontSize: 16.0,
+              color: ColorsData.boxLetterColor,
+              fontWeight: FontWeight.bold,
+            ),
           ),
+          const SizedBox(height: 6.0),
           Text(
             _timer.toString(),
             style: const TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
-                fontSize: 18.0),
+                fontSize: 24.0),
           ),
         ]),
       ),

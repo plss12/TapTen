@@ -44,18 +44,19 @@ class _ColorToggleButtonState extends State<ColorToggleButton> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        //padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
+        width: 80,
+        height: 80,
         decoration: BoxDecoration(
             color: ColorsData.boxColor,
             borderRadius: BorderRadius.circular(8.0)),
-        child: Column(children: [
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           IconButton(
             splashColor: Colors.transparent,
             highlightColor: Colors.transparent,
             hoverColor: Colors.transparent,
             icon: ColorsData.modeIcon,
             color: ColorsData.boxNumberColor,
-            tooltip: 'Modo oscuro o claro',
+            iconSize: 55,
             onPressed: () {
               setState(() {
                 ColorsData.toggleDarkMode();
