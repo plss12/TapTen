@@ -6,11 +6,12 @@ class ColorsData {
   static Color boxLetterColor = const Color(0xffb9aea2);
   static Color boxColor = const Color(0xff776e65);
   static Color boxNumberColor = const Color(0xfff9f6f2);
+  static Color iconColor = const Color.fromARGB(255, 223, 139, 60);
   static Color backgroundColor = backColor;
   static Icon modeIcon = const Icon(Icons.nightlight_round);
-  static Icon topIcon = const Icon(
-    Icons.workspace_premium_rounded,
-  );
+  static Icon iconIcon =
+      Icon(Icons.touch_app_rounded, color: boxNumberColor, size: 60);
+  static Icon topIcon = const Icon(Icons.workspace_premium_rounded);
   static Icon button = const Icon(
     Icons.trending_up_rounded,
     size: 100,

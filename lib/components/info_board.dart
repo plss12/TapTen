@@ -10,10 +10,11 @@ class ScoreBoard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+      width: 90,
+      height: 90,
       decoration: BoxDecoration(
           color: ColorsData.boxColor, borderRadius: BorderRadius.circular(8.0)),
-      child: Column(children: [
+      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         Text(
           label,
           style: TextStyle(

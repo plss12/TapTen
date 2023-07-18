@@ -127,7 +127,16 @@ class _CounterState extends State<Counter> {
       const SizedBox(height: 16.0),
       Container(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-          child: TextButton(onPressed: _button, child: Text("$_counter")))
+          child: TextButton(
+              onPressed: _button,
+              child: Text(
+                "$_counter",
+                style: TextStyle(
+                  fontSize: 100.0,
+                  color: ColorsData.boxLetterColor,
+                  fontWeight: FontWeight.bold,
+                ),
+              )))
     ]);
   }
 }

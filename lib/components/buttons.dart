@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '/const/colors.dart';
-//import 'dart:async';
 
 class Buttons {
   void _increaseTries(int tries, void Function(int) updateTries) {
@@ -12,7 +11,6 @@ class Buttons {
   }
 
   Container moreTries(int tries, void Function(int) updateTries) => Container(
-      //padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
       decoration: BoxDecoration(
           color: ColorsData.boxColor, borderRadius: BorderRadius.circular(8.0)),
       child: Column(children: [
@@ -28,7 +26,6 @@ class Buttons {
       ]));
 
   Container lessTries(int tries, void Function(int) updateTries) => Container(
-      //padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
       decoration: BoxDecoration(
           color: ColorsData.boxColor, borderRadius: BorderRadius.circular(8.0)),
       child: Column(children: [

@@ -62,46 +62,39 @@ class _GameState extends State<Game> {
     return Scaffold(
       backgroundColor: ColorsData.backgroundColor,
       body: Container(
-        margin: const EdgeInsets.only(top: 75, bottom: 10),
+        margin: const EdgeInsets.only(top: 80, bottom: 10),
         child: Column(
           children: [
             Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    width: 90,
+                    height: 90,
+                    decoration: BoxDecoration(
+                        color: ColorsData.iconColor,
+                        borderRadius: BorderRadius.circular(8.0)),
+                    child: ColorsData.iconIcon,
+                  ),
+                  Row(
                     children: [
-                      Image.asset(
-                        'assets/images/Logo.png',
-                        width: 150,
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child:
+                            ScoreBoard(label: '  SCORE  ', score: '$_lastTry'),
                       ),
-                      Row(children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 8.0),
-                                child: ScoreBoard(
-                                    label: '  SCORE  ', score: '$_lastTry'),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 8.0),
-                                child: ScoreBoard(
-                                    label: 'RECORD',
-                                    score: '${_bestTry.value}'),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ]),
-                    ])),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ScoreBoard(
+                            label: 'RECORD', score: '${_bestTry.value}'),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 25.0),
               child: Column(
