@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'game.dart';
 
-void main() async {
-  //Allow only portrait mode on Android & iOS
+Future main() async {
+  await dotenv.load(fileName: ".env");
   WidgetsFlutterBinding.ensureInitialized();
+  MobileAds.instance.initialize();
   await SystemChrome.setPreferredOrientations(
     [DeviceOrientation.portraitUp],
   );

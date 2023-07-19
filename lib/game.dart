@@ -1,7 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'components/buttons.dart';
-// import 'components/adds.dart';
+import 'components/ads.dart';
 import 'components/counter.dart';
 import 'components/info_board.dart';
 import 'const/colors.dart';
@@ -96,7 +96,7 @@ class _GameState extends State<Game> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 25.0),
+              padding: const EdgeInsets.symmetric(vertical: 60.0),
               child: Column(
                 children: [
                   IgnorePointer(
@@ -115,6 +115,7 @@ class _GameState extends State<Game> {
                               })),
                     ),
                   ),
+                  const SizedBox(height: 30.0),
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -155,6 +156,7 @@ class _GameState extends State<Game> {
           ],
         ),
       ),
+      bottomNavigationBar: const CustomBannerAd(),
     );
   }
 }
