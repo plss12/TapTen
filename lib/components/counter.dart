@@ -129,6 +129,10 @@ class _CounterState extends State<Counter> {
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
           child: TextButton(
               onPressed: _button,
+              style: ButtonStyle(
+                overlayColor: MaterialStateProperty.all(Colors.transparent),
+                splashFactory: NoSplash.splashFactory,
+              ),
               child: Text(
                 "$_counter",
                 style: TextStyle(
