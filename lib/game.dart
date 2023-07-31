@@ -16,10 +16,11 @@ class Game extends StatefulWidget {
 class _GameState extends State<Game> {
   int _lastTry = 0;
   final ValueNotifier<int> _bestTry = ValueNotifier<int>(0);
-  final ValueNotifier<bool> _start = ValueNotifier<bool>(false);
+  bool _colorMode = false;
   final String kLastAttemptKey = 'lastAttempt';
   final String kBestAttemptKey = 'bestAttempt';
   final String kTriesAttemptKey = 'triesAttempt';
+  final String kColorMode = 'colorMode';
 
   final Buttons buttons = Buttons();
 
@@ -40,6 +41,10 @@ class _GameState extends State<Game> {
     setState(() {
       _lastTry = prefs.getInt(kLastAttemptKey) ?? 0;
       _bestTry.value = prefs.getInt(kBestAttemptKey) ?? 0;
+      _colorMode = prefs.getBool(kColorMode) ?? false;
+      if (_colorMode) {
+        ColorsData.toggleDarkMode();
+      }
     });
   }
 
@@ -51,7 +56,6 @@ class _GameState extends State<Game> {
 
   void _updateInformation(int lastTry, int bestTry) {
     setState(() {
-      _start.value = false;
       _lastTry = lastTry;
       _bestTry.value = bestTry;
     });
@@ -99,57 +103,19 @@ class _GameState extends State<Game> {
               padding: const EdgeInsets.symmetric(vertical: 60.0),
               child: Column(
                 children: [
-                  IgnorePointer(
-                    ignoring: !_start.value,
-                    child: Opacity(
-                      opacity: !_start.value ? 0.5 : 1.0,
-                      child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Counter(
-                              start: _start,
-                              lastTry: _lastTry,
-                              bestTry: _bestTry,
-                              onSaveStatistics: () => _saveStatistics(),
-                              onUpdateInformation: (int lastTry, int bestTry) {
-                                _updateInformation(lastTry, bestTry);
-                              })),
-                    ),
-                  ),
-                  const SizedBox(height: 30.0),
-                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child:
-                          ColorToggleButton(onPressed: () => setState(() {})),
-                    ),
-                    Visibility(
-                        visible: !_start.value,
-                        child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                                width: 80,
-                                height: 80,
-                                decoration: BoxDecoration(
-                                    color: ColorsData.boxColor,
-                                    borderRadius: BorderRadius.circular(8.0)),
-                                child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      IconButton(
-                                        splashColor: Colors.transparent,
-                                        highlightColor: Colors.transparent,
-                                        hoverColor: Colors.transparent,
-                                        icon: ColorsData.startIcon,
-                                        color: ColorsData.boxNumberColor,
-                                        iconSize: 55,
-                                        onPressed: () {
-                                          setState(() {
-                                            _start.value = true;
-                                          });
-                                        },
-                                      )
-                                    ])))),
-                  ])
+                  Counter(
+                      lastTry: _lastTry,
+                      bestTry: _bestTry,
+                      onSaveStatistics: () => _saveStatistics(),
+                      onUpdateInformation: (int lastTry, int bestTry) {
+                        _updateInformation(lastTry, bestTry);
+                      }),
+                  ColorToggleButton(
+                      onPressed: () => setState(() {
+                            _colorMode = !_colorMode;
+                            SharedPreferences.getInstance().then((prefs) =>
+                                prefs.setBool(kColorMode, _colorMode));
+                          })),
                 ],
               ),
             ),

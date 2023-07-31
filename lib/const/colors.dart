@@ -45,8 +45,8 @@ class _ColorToggleButtonState extends State<ColorToggleButton> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: 80,
-        height: 80,
+        width: 70,
+        height: 70,
         decoration: BoxDecoration(
             color: ColorsData.boxColor,
             borderRadius: BorderRadius.circular(8.0)),
@@ -57,7 +57,7 @@ class _ColorToggleButtonState extends State<ColorToggleButton> {
             hoverColor: Colors.transparent,
             icon: ColorsData.modeIcon,
             color: ColorsData.boxNumberColor,
-            iconSize: 55,
+            iconSize: 45,
             onPressed: () {
               setState(() {
                 ColorsData.toggleDarkMode();
