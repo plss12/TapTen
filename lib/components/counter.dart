@@ -21,8 +21,8 @@ class Counter extends StatefulWidget {
 }
 
 class _CounterState extends State<Counter> {
-  final int _timeTimer = 10;
-  int _timer = 10;
+  final int _timeTimer = 15;
+  int _timer = 15;
   int _lastTry = 0;
   int _bestTry = 0;
   Timer? _timerInstance;
@@ -98,6 +98,7 @@ class _CounterState extends State<Counter> {
             opacity: !_start ? 0.5 : 1.0,
             child: Column(children: [
               Container(
+                width: 120,
                 padding: const EdgeInsets.symmetric(
                     horizontal: 20.0, vertical: 12.0),
                 decoration: BoxDecoration(
@@ -122,35 +123,45 @@ class _CounterState extends State<Counter> {
                   ),
                 ]),
               ),
+              const SizedBox(height: 25.0),
               Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16.0,
-                    vertical: 16.0,
-                  ),
+                width: 120,
+                height: 120,
+                decoration: BoxDecoration(
+                  color: ColorsData.buttonColor,
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: FittedBox(
+                  fit: BoxFit
+                      .scaleDown, // Ajusta el contenido para que quepa dentro sin escalarlo más allá de su tamaño original.
                   child: TextButton(
-                      onPressed: _increaseCounter,
-                      style: ButtonStyle(
-                        overlayColor:
-                            MaterialStateProperty.all(Colors.transparent),
-                        splashFactory: NoSplash.splashFactory,
+                    onPressed: _increaseCounter,
+                    style: ButtonStyle(
+                      overlayColor:
+                          MaterialStateProperty.all(Colors.transparent),
+                      splashFactory: NoSplash.splashFactory,
+                    ),
+                    child: Text(
+                      "$_counter",
+                      style: TextStyle(
+                        fontSize: 120.0,
+                        color: ColorsData.boxNumberColor,
+                        fontWeight: FontWeight.bold,
                       ),
-                      child: Text(
-                        "$_counter",
-                        style: TextStyle(
-                          fontSize: 125.0,
-                          color: ColorsData.boxLetterColor,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ))),
+                    ),
+                  ),
+                ),
+              )
             ])),
       ),
+      const SizedBox(height: 25.0),
       Visibility(
         visible: !_start,
         child: Container(
-          width: 150,
-          height: 80,
+          width: 120,
+          height: 60,
           decoration: BoxDecoration(
-              color: ColorsData.boxColor,
+              color: ColorsData.buttonColor,
               borderRadius: BorderRadius.circular(8.0)),
           child: TextButton(
               onPressed: () {
@@ -158,17 +169,23 @@ class _CounterState extends State<Counter> {
                   _startCounter();
                 });
               },
+              style: ButtonStyle(
+                overlayColor: MaterialStateColor.resolveWith((states) => Colors
+                    .transparent), // Color de resaltado al mantener presionado
+                backgroundColor: MaterialStateColor.resolveWith((states) => Colors
+                    .transparent), // Color del botón cuando está deshabilitado, al mantener presionado y al pulsar
+              ),
               child: Text(
                 "START",
                 style: TextStyle(
-                  fontSize: 32.0,
-                  color: ColorsData.boxLetterColor,
+                  fontSize: 25.0,
+                  color: ColorsData.boxNumberColor,
                   fontWeight: FontWeight.bold,
                 ),
               )),
         ),
       ),
-      const SizedBox(height: 50.0),
+      const SizedBox(height: 25.0),
     ]);
   }
 }

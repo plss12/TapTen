@@ -100,7 +100,7 @@ class _GameState extends State<Game> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 60.0),
+              padding: const EdgeInsets.symmetric(vertical: 50.0),
               child: Column(
                 children: [
                   Counter(

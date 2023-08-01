@@ -106,19 +106,6 @@ class AppOpenAdManager {
 
   Completer<void> _adLoadCompleter = Completer<void>();
 
-  /* void loadAppOpenAd() {
-    AppOpenAd.load(
-        adUnitId: openID,
-        request: const AdRequest(),
-        adLoadCallback: AppOpenAdLoadCallback(
-            onAdLoaded: (ad) {
-              _appOpenAd = ad;
-              _appOpenAd!.show();
-            },
-            onAdFailedToLoad: (error) {}),
-        orientation: AppOpenAd.orientationPortrait);
-  } */
-
   Future<void> loadAppOpenAd() async {
     _adLoadCompleter = Completer<void>();
 

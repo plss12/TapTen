@@ -7,6 +7,7 @@ class ColorsData {
   static Color boxColor = const Color(0xff776e65);
   static Color boxNumberColor = const Color(0xfff9f6f2);
   static Color iconColor = const Color.fromARGB(255, 223, 139, 60);
+  static Color buttonColor = const Color.fromARGB(255, 223, 139, 60);
   static Color backgroundColor = backColor;
   static Icon modeIcon = const Icon(Icons.nightlight_round);
   static Icon iconIcon =
@@ -45,8 +46,8 @@ class _ColorToggleButtonState extends State<ColorToggleButton> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: 70,
-        height: 70,
+        width: 60,
+        height: 60,
         decoration: BoxDecoration(
             color: ColorsData.boxColor,
             borderRadius: BorderRadius.circular(8.0)),
@@ -57,7 +58,7 @@ class _ColorToggleButtonState extends State<ColorToggleButton> {
             hoverColor: Colors.transparent,
             icon: ColorsData.modeIcon,
             color: ColorsData.boxNumberColor,
-            iconSize: 45,
+            iconSize: 40,
             onPressed: () {
               setState(() {
                 ColorsData.toggleDarkMode();

@@ -18,7 +18,7 @@ class ScoreBoard extends StatelessWidget {
         Text(
           label,
           style: TextStyle(
-            fontSize: 16.0,
+            fontSize: 20.0,
             color: ColorsData.boxLetterColor,
             fontWeight: FontWeight.bold,
           ),
