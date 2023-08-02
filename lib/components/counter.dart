@@ -21,8 +21,8 @@ class Counter extends StatefulWidget {
 }
 
 class _CounterState extends State<Counter> {
-  final int _timeTimer = 15;
-  int _timer = 15;
+  final int _timeTimer = 10;
+  int _timer = 10;
   int _lastTry = 0;
   int _bestTry = 0;
   Timer? _timerInstance;
@@ -99,29 +99,34 @@ class _CounterState extends State<Counter> {
             child: Column(children: [
               Container(
                 width: 120,
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 20.0, vertical: 12.0),
+                height: 80,
+                padding: const EdgeInsets.symmetric(horizontal: 12.0),
                 decoration: BoxDecoration(
                     color: ColorsData.boxColor,
                     borderRadius: BorderRadius.circular(8.0)),
-                child: Column(children: [
-                  Text(
-                    "SECONDS",
-                    style: TextStyle(
-                      fontSize: 20.0,
-                      color: ColorsData.boxLetterColor,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 6.0),
-                  Text(
-                    _timer.toString(),
-                    style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 28.0),
-                  ),
-                ]),
+                child: FittedBox(
+                  fit: BoxFit.contain,
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "SECONDS",
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            color: ColorsData.boxLetterColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 6.0),
+                        Text(
+                          _timer.toString(),
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 22.0),
+                        ),
+                      ]),
+                ),
               ),
               const SizedBox(height: 25.0),
               Container(
